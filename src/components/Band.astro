@@ -1,0 +1,25 @@
+---
+// IMS 스타일 섹션: 회색 띠에 가운데 제목, 아래에 본문. 새 섹션도 이 컴포넌트로 만듭니다.
+interface Props { title: string; id?: string }
+const { title, id } = Astro.props;
+---
+<section id={id}>
+  <div class="band"><h2>{title}</h2></div>
+  <div class="wrap body"><slot /></div>
+</section>
+
+<style>
+  .band {
+    background: var(--band);
+    padding: 2.1rem var(--space-3);
+    text-align: center;
+  }
+  h2 {
+    margin: 0;
+    color: var(--navy);
+    font-size: clamp(1.6rem, 3.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .body { padding-top: var(--space-4); padding-bottom: var(--space-4); }
+</style>

@@ -1,14 +1,16 @@
 # hyungseokseo.com
 
-Astro로 만든 미니멀 개인 홈페이지. KR(`/`) · EN(`/en/`).
+Astro 기반 개인 홈페이지. 영문·국문을 한 페이지에 나란히 보여주는 구성.
 
 ## 구조
 ```
-src/data/site.ts        모든 문구·연락처 (여기만 고치면 됨)
-src/styles/global.css   디자인 토큰 (폰트·색·여백)
-src/layouts/Base.astro  공통 머리/꼬리, SEO, Person 스키마
-src/components/         Section(공통 섹션 틀), Home(메인)
+src/data/site.ts        메인 문구·경력·연구·Journey 사진·연락처 (여기만 고치면 됨)
+src/data/teaching.ts    Teaching 페이지 과목 정보
+src/styles/global.css   디자인 토큰 (폰트·색·여백·2단/3단 그리드)
+src/layouts/Base.astro  상단 메뉴, 푸터, SEO, Person 스키마
+src/components/         Hero(사진+테두리 타이틀), Band(회색 띠 섹션), Journey(사진 스트립)
 src/pages/              URL = 파일 경로
+public/qahub/, public/experimental/   이전 사이트 페이지 (원본 유지, 추후 새 스타일로 전환)
 ```
 
 ## 로컬 실행
@@ -18,11 +20,10 @@ npm run dev      # http://localhost:4321
 npm run build    # dist/ 생성
 ```
 
-## 새 페이지 추가 (예: Research)
-1. `src/pages/research.astro`, `src/pages/en/research.astro` 생성
-2. `Base` 레이아웃과 `Section` 컴포넌트로 감싸기
-3. 문구는 `src/data/site.ts`에 추가
-4. 푸시하면 자동 배포
+## 자주 하는 수정
+- Journey 사진 추가: `public/journey/`에 파일 → `site.ts`의 `journey`에 한 줄
+- 메뉴 추가: `site.ts`의 `nav`
+- 새 페이지: `src/pages/이름/index.astro` 생성 → `Base` + `Hero` + `Band` 조합
 
 ## 배포 (Cloudflare Pages)
 - GitHub 저장소 연결 → Framework preset: Astro

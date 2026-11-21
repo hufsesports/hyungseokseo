@@ -1,15 +1,17 @@
 ---
-import { journey, type Lang } from '../data/site';
-interface Props { lang: Lang }
-const { lang } = Astro.props;
+import { journey } from '../data/site';
 ---
-<div class="strip" tabindex="0" aria-label="Journey">
+<div class="strip" tabindex="0" aria-label="Journey photos">
   {journey.map((j) => (
     <figure>
       <a href={j.src} target="_blank" rel="noopener">
-        <img src={j.src} alt={j[lang]} loading="lazy" />
+        <img src={j.src} alt={j.en} loading="lazy" />
       </a>
-      <figcaption><span class="y">{j.year}</span>{j[lang]}</figcaption>
+      <figcaption>
+        <span class="y">{j.year}</span>
+        <span>{j.en}</span>
+        {j.ko !== j.en && <span class="ko">{j.ko}</span>}
+      </figcaption>
     </figure>
   ))}
 </div>
@@ -20,38 +22,27 @@ const { lang } = Astro.props;
     gap: 1rem;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding-bottom: var(--space-2);
-    /* 본문 폭을 넘어 화면 끝까지 */
-    margin-right: calc(50% - 50vw);
-    padding-right: var(--space-3);
+    padding: var(--space-3) 0 var(--space-2);
     scrollbar-width: thin;
   }
-  figure {
-    margin: 0;
-    flex: 0 0 auto;
-    scroll-snap-align: start;
-    width: min-content;
-  }
+  figure { margin: 0; flex: 0 0 auto; scroll-snap-align: start; width: min-content; }
   img {
     display: block;
-    height: 240px;
+    height: 260px;
     width: auto;
-    max-width: 360px;
+    max-width: 400px;
     object-fit: cover;
-    border-radius: 4px;
     background: var(--line);
   }
   figcaption {
+    display: flex;
+    flex-direction: column;
     margin-top: 0.5rem;
+    min-width: 130px;
     font-size: 0.8rem;
-    color: var(--muted);
     line-height: 1.45;
-    min-width: 120px;
+    color: var(--muted);
   }
-  .y {
-    display: block;
-    color: var(--fg);
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-  }
+  .y { color: var(--navy); font-weight: 700; }
+  .ko { color: #8a8a8a; }
 </style>

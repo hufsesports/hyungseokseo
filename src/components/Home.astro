@@ -1,132 +1,97 @@
 ---
 import Base from '../layouts/Base.astro';
-import Section from './Section.astro';
+import Band from './Band.astro';
+import Hero from './Hero.astro';
 import Journey from './Journey.astro';
-import { copy, links, type Lang } from '../data/site';
-
-interface Props { lang: Lang }
-const { lang } = Astro.props;
-const t = copy[lang];
+import { hero, intro, career, focus, links } from '../data/site';
 ---
-<Base lang={lang}>
-  <section class="wrap hero">
-    <h1>{t.name}<span class="alt">{t.nameAlt}</span></h1>
-    <p class="tagline">{t.tagline}</p>
-    <p class="intro">{t.intro}</p>
-  </section>
+<Base current="Home">
+  <Hero title={hero.title} sub={hero.sub} tagline={hero.tagline} />
 
-  <Section title={t.profileTitle} id="profile">
-    <p class="lead">{t.profile}</p>
-    <ul class="dash">
-      {t.roles.map((r) => <li>{r}</li>)}
-    </ul>
-  </Section>
+  <Band title="Introduction" id="introduction">
+    <div class="cols-2 prose">
+      <div lang="en">{intro.en.map((p) => <p set:html={p} />)}</div>
+      <div lang="ko">{intro.ko.map((p) => <p set:html={p} />)}</div>
+    </div>
+  </Band>
 
-  <Section title={t.researchTitle} id="research">
-    <p class="note">{t.researchNote}</p>
-    <ol class="strands">
-      {t.research.map((r, i) => (
-        <li>
-          <a href={r.href}>
-            <span class="no">0{i + 1}</span>
-            <span class="body">
-              <strong>{r.title}</strong>
-              <span>{r.body}</span>
-            </span>
-            <span class="arrow" aria-hidden="true">→</span>
-          </a>
-        </li>
+  <Band title="Career" id="career">
+    <div class="cols-2">
+      <ul class="sq" lang="en">{career.en.map((c) => <li>{c}</li>)}</ul>
+      <ul class="sq" lang="ko">{career.ko.map((c) => <li>{c}</li>)}</ul>
+    </div>
+  </Band>
+
+  <Band title="Research" id="research">
+    <div class="lead">
+      <p class="headline">{focus.headline}</p>
+      <p class="subline">{focus.sub}</p>
+    </div>
+    <div class="cols-3 focus">
+      {focus.items.map((f) => (
+        <div class="item">
+          <h3>{f.title}</h3>
+          <p class="ko">{f.ko}</p>
+          <ul class="sq">{f.bullets.map((b) => <li>{b}</li>)}</ul>
+          <a class="more" href={f.href}>Learn more →</a>
+        </div>
       ))}
-    </ol>
-  </Section>
+    </div>
+  </Band>
 
-  <Section title={t.journeyTitle} id="journey">
-    <p class="note">{t.journeyNote}</p>
-    <Journey lang={lang} />
-  </Section>
+  <Band title="Journey" id="journey">
+    <p class="center muted">Selected moments across coaching, league operations, strategy, education, and international standardization.</p>
+    <Journey />
+  </Band>
 
-  <Section title={t.contactTitle} id="contact">
-    <dl class="contact">
-      <dt>{t.contact.work}</dt><dd><a href={`mailto:${links.emailWork}`}>{links.emailWork}</a></dd>
-      <dt>{t.contact.personal}</dt><dd><a href={`mailto:${links.emailPersonal}`}>{links.emailPersonal}</a></dd>
-    </dl>
-    <ul class="ext">
-      <li><a href={links.scholar} target="_blank" rel="noopener">{t.contact.scholar} ↗</a></li>
-      <li><a href={links.hufs} target="_blank" rel="noopener">{t.contact.hufs} ↗</a></li>
-      <li><a href={links.instagram} target="_blank" rel="noopener">{t.contact.instagram} ↗</a></li>
-    </ul>
-  </Section>
+  <Band title="Contact" id="contact">
+    <div class="cols-2">
+      <div>
+        <h3 class="h3">Email</h3>
+        <p class="kv">
+          <a href={`mailto:${links.emailWork}`}>{links.emailWork}</a><br />
+          <a href={`mailto:${links.emailPersonal}`}>{links.emailPersonal}</a>
+        </p>
+        <p class="muted small">Open to research collaboration, speaking, and industry advisory.<br />연구 협업, 강연, 산업 자문 문의를 받습니다.</p>
+      </div>
+      <div>
+        <h3 class="h3">Links</h3>
+        <ul class="sq">
+          <li><a href={links.scholar} target="_blank" rel="noopener">Google Scholar</a></li>
+          <li><a href={links.hufs} target="_blank" rel="noopener">HUFS Faculty Profile · 교수 프로필</a></li>
+          <li><a href={links.instagram} target="_blank" rel="noopener">Instagram @seo.hyeongseok</a></li>
+        </ul>
+      </div>
+    </div>
+  </Band>
 </Base>
 
 <style>
-  .hero {
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-2);
-  }
-  h1 {
-    margin: 0;
-    font-size: clamp(2.6rem, 7vw, 3.6rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-  }
-  .alt {
-    display: block;
-    margin-top: var(--space-1);
-    font-size: 1rem;
-    font-weight: 400;
-    letter-spacing: 0;
-    color: var(--muted);
-  }
-  .tagline {
-    margin: var(--space-3) 0 var(--space-2);
-    font-size: 1.35rem;
+  .prose p { margin: 0 0 1rem; }
+  .prose :global(b) { font-weight: 700; }
+  .center { text-align: center; }
+  .muted { color: var(--muted); }
+  .small { font-size: 0.9rem; }
+
+  .lead { text-align: center; margin-bottom: var(--space-4); }
+  .headline { margin: 0 0 0.75rem; font-size: 1.15rem; font-weight: 700; }
+  .subline { margin: 0; font-size: 1.15rem; font-style: italic; }
+
+  .focus .item { display: flex; flex-direction: column; }
+  .focus h3 { margin: 0; text-align: center; font-size: 1.2rem; font-weight: 600; }
+  .focus .ko { margin: 0 0 1.25rem; text-align: center; color: var(--navy); font-weight: 500; }
+  .focus .sq { flex: 1; }
+  .more {
+    margin-top: 1.25rem;
+    align-self: center;
+    color: var(--navy);
+    font-size: 0.9rem;
     font-weight: 600;
-    letter-spacing: -0.01em;
-    line-height: 1.45;
-  }
-  .intro { margin: 0; color: var(--muted); }
-
-  .lead { margin: 0 0 var(--space-2); }
-  .note { margin: 0 0 var(--space-3); color: var(--muted); }
-  ul, ol { margin: 0; padding: 0; list-style: none; }
-  .dash li {
-    padding: 0.15rem 0 0.15rem 1.85rem;
-    position: relative;
-  }
-  .dash li::before {
-    content: '';
-    position: absolute;
-    left: 0.25rem;
-    top: 0.95em;
-    width: 0.6rem;
-    height: 1px;
-    background: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
   }
 
-  .strands li + li { border-top: 1px solid var(--line); }
-  .strands a {
-    display: grid;
-    grid-template-columns: 2.25rem 1fr auto;
-    gap: 0.75rem;
-    padding: var(--space-2) 0;
-  }
-  .strands .no { font-size: 0.8rem; color: var(--accent); padding-top: 0.2rem; }
-  .strands .body { display: flex; flex-direction: column; gap: 0.2rem; }
-  .strands strong { font-weight: 600; }
-  .strands .body span { color: var(--muted); font-size: 0.95rem; }
-  .strands .arrow { color: var(--muted); transition: transform 0.15s; }
-  .strands a:hover .arrow { transform: translateX(4px); color: var(--accent); }
-  .strands a:hover strong { color: var(--accent); }
-
-  .contact {
-    display: grid;
-    grid-template-columns: 5rem 1fr;
-    gap: 0.25rem 1rem;
-    margin: 0 0 var(--space-2);
-  }
-  .contact dt { color: var(--muted); }
-  .contact dd { margin: 0; }
-  .contact a, .ext a { border-bottom: 1px solid var(--line); }
-  .ext { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  .h3 { margin: 0 0 0.5rem; font-size: 1.1rem; font-weight: 700; color: var(--navy); }
+  .kv { margin: 0 0 1rem; }
+  .kv a, .sq a { color: var(--fg); text-underline-offset: 3px; }
 </style>

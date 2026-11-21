@@ -1,25 +1,19 @@
 ---
 import '../styles/global.css';
-import { copy, links, type Lang } from '../data/site';
+import { links, meta, nav } from '../data/site';
 
 interface Props {
-  lang: Lang;
   title?: string;
   description?: string;
-  /** 다른 언어 버전 경로. false면 언어 전환을 숨김(한 언어만 있는 페이지) */
-  altPath?: string | false;
+  /** 현재 메뉴 (nav의 label) */
+  current?: string;
 }
 
-const { lang, title, description, altPath } = Astro.props;
-const t = copy[lang];
-const pageTitle = title ?? t.meta.title;
-const pageDesc = description ?? t.meta.description;
+const { title, description, current = 'Home' } = Astro.props;
+const pageTitle = title ?? meta.title;
+const pageDesc = description ?? meta.description;
 const site = Astro.site?.origin ?? 'https://hyungseokseo.com';
 const canonical = new URL(Astro.url.pathname, site).href;
-const otherLang: Lang = lang === 'ko' ? 'en' : 'ko';
-const otherHref = altPath === false ? null : (altPath ?? t.langSwitch.href);
-const otherLabel = lang === 'ko' ? 'EN' : 'KR';
-const home = lang === 'ko' ? '/' : '/en/';
 
 const person = {
   '@context': 'https://schema.org',
@@ -35,57 +29,104 @@ const person = {
 };
 ---
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
     <link rel="canonical" href={canonical} />
-    {otherHref && <link rel="alternate" hreflang={lang} href={canonical} />}
-    {otherHref && <link rel="alternate" hreflang={otherLang} href={new URL(otherHref, site).href} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDesc} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL('/journey/kespa_forum2_2025.webp', site).href} />
+    <meta property="og:image" content={new URL('/hero.webp', site).href} />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
     <script type="application/ld+json" set:html={JSON.stringify(person)} />
   </head>
   <body>
-    <header class="wrap top">
-      <a href={home} class="mark">{lang === 'ko' ? '서형석' : 'Henry Seo'}</a>
-      <nav>
-        {t.nav.map((n) => <a href={n.href}>{n.label}</a>)}
-        {otherHref && <a href={otherHref} class="lang" hreflang={otherLang}>{otherLabel}</a>}
-      </nav>
+    <header class="bar">
+      <div class="wrap bar-in">
+        <a href="/" class="brand"><span class="logo" aria-hidden="true">HS</span>Henry Seo</a>
+        <nav>
+          {nav.map((n) => (
+            <a href={n.href} class={n.label === current ? 'on' : undefined}>{n.label}</a>
+          ))}
+        </nav>
+      </div>
     </header>
     <main>
       <slot />
     </main>
-    <footer class="wrap foot">
-      <span>© {new Date().getFullYear()} Seo Hyung Seok</span>
+    <footer class="foot">
+      <div class="wrap">
+        <p>Division of Global Sports Industry, Hankuk University of Foreign Studies<br />
+        한국외국어대학교 글로벌스포츠산업학부</p>
+        <p>E: {links.emailWork} · {links.emailPersonal}</p>
+        <p class="c">© {new Date().getFullYear()} Seo Hyung Seok. All rights reserved.</p>
+      </div>
     </footer>
   </body>
 </html>
 
 <style>
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: var(--space-3);
-    padding-bottom: var(--space-3);
-    font-size: 0.9rem;
+  .bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bar);
+    color: #fff;
   }
-  .mark { font-weight: 600; }
-  nav { display: flex; gap: 1.25rem; color: var(--muted); }
-  .lang { letter-spacing: 0.08em; }
+  .bar-in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    height: 56px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    font-size: 1.15rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid #d4a72c;
+    color: #d4a72c;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  nav { display: flex; gap: 1.6rem; overflow-x: auto; scrollbar-width: none; }
+  nav a {
+    color: #d0d0d0;
+    text-decoration: none;
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+  nav a:hover, nav a.on { color: #fff; }
+  nav a.on { font-weight: 700; }
+
   .foot {
-    padding-top: var(--space-5);
-    padding-bottom: var(--space-3);
-    font-size: 0.8rem;
+    margin-top: var(--space-5);
+    padding: var(--space-3) 0;
+    font-size: 0.82rem;
     color: var(--muted);
+    line-height: 1.6;
+  }
+  .foot p { margin: 0 0 0.4rem; }
+  .foot .c { margin-top: var(--space-2); }
+
+  @media (max-width: 760px) {
+    .bar-in { height: auto; flex-direction: column; align-items: flex-start; gap: 0.25rem; padding-top: 0.6rem; padding-bottom: 0.6rem; }
+    nav { gap: 1.1rem; width: 100%; }
   }
 </style>

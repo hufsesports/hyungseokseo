@@ -1,67 +1,62 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Section from '../../components/Section.astro';
+import Band from '../../components/Band.astro';
+import Hero from '../../components/Hero.astro';
 import { teaching as t } from '../../data/teaching';
 ---
-<Base lang="en" altPath={false} title="Teaching — Seo Hyung Seok (Henry Seo)" description={t.intro}>
-  <section class="wrap hero">
-    <p class="label">{t.title}</p>
-    <h1>{t.tagline}</h1>
-    <p class="intro">{t.intro}</p>
-  </section>
+<Base current="Teaching" title="Teaching — Seo Hyung Seok (Henry Seo)" description={t.intro}>
+  <Hero title={t.title} sub={t.tagline} compact />
 
-  <Section title={t.approachTitle} id="approach">
-    <p class="lead">{t.approach}</p>
-    <ol class="stages">
+  <Band title="Course Map">
+    <p class="center">{t.intro}</p>
+    <p class="center muted">{t.approach}</p>
+    <div class="cols-3 stages">
       {t.stages.map((s) => (
-        <li><span class="no">{s.no}</span><div><strong>{s.title}</strong><p>{s.body}</p></div></li>
+        <div>
+          <p class="no">{s.no}</p>
+          <h3>{s.title}</h3>
+          <p>{s.body}</p>
+        </div>
       ))}
-    </ol>
-  </Section>
+    </div>
+  </Band>
 
   {t.groups.map((g) => (
-    <Section title={g.title}>
-      <div class="courses">
+    <Band title={g.title}>
+      <div class="cols-2 courses">
         {g.courses.map((c) => (
           <article>
             <h3>{c.name}</h3>
             <p class="tags">{c.tags.join(' · ')}</p>
             <p>{c.body}</p>
-            <ul class="dash">
-              {c.outcomes.map((o) => <li>{o}</li>)}
-            </ul>
-            {c.link && <p class="more"><a href={c.link.href}>{c.link.label} →</a></p>}
+            <ul class="sq">{c.outcomes.map((o) => <li>{o}</li>)}</ul>
+            {c.link && <a class="more" href={c.link.href}>{c.link.label} →</a>}
           </article>
         ))}
       </div>
-    </Section>
+    </Band>
   ))}
 </Base>
 
 <style>
-  .hero { padding-top: var(--space-5); padding-bottom: var(--space-2); }
-  h1 {
-    margin: var(--space-1) 0 var(--space-2);
-    font-size: clamp(1.9rem, 5vw, 2.5rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25;
+  .center { text-align: center; max-width: 760px; margin: 0 auto 1rem; }
+  .muted { color: var(--muted); }
+  .stages { margin-top: var(--space-4); text-align: center; }
+  .stages .no { margin: 0; color: var(--navy); font-weight: 700; }
+  .stages h3 { margin: 0.25rem 0 0.5rem; font-size: 1.1rem; }
+  .stages p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .courses { row-gap: var(--space-4); }
+  article h3 { margin: 0; font-size: 1.15rem; font-weight: 700; }
+  article p { margin: 0 0 1rem; }
+  .tags { margin: 0.15rem 0 0.9rem !important; color: var(--navy); font-size: 0.85rem; font-weight: 500; }
+  .sq { color: var(--muted); font-size: 0.93rem; }
+  .more {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--navy);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
   }
-  .intro { margin: 0; color: var(--muted); }
-  .lead { margin: 0 0 var(--space-3); }
-  ol, ul { margin: 0; padding: 0; list-style: none; }
-  .stages li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.75rem; padding: 0.75rem 0; }
-  .stages li + li { border-top: 1px solid var(--line); }
-  .stages .no { font-size: 0.8rem; color: var(--accent); padding-top: 0.2rem; }
-  .stages p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
-  .courses { display: grid; gap: var(--space-4); }
-  article h3 { margin: 0; font-size: 1.15rem; font-weight: 600; }
-  article p { margin: 0 0 var(--space-2); }
-  .tags { margin: 0.25rem 0 var(--space-2) !important; font-size: 0.8rem; color: var(--accent); }
-  .dash li { padding: 0.1rem 0 0.1rem 1.85rem; position: relative; color: var(--muted); font-size: 0.95rem; }
-  .dash li::before {
-    content: ''; position: absolute; left: 0.25rem; top: 0.95em; width: 0.6rem; height: 1px; background: var(--muted);
-  }
-  .more { margin-top: var(--space-2) !important; }
-  .more a { border-bottom: 1px solid var(--line); }
 </style>

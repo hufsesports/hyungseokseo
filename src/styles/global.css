@@ -1,58 +1,62 @@
 /* 디자인 토큰 — 새 페이지도 이 값만 사용합니다. */
 :root {
   --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --fg: #111111;
-  --muted: #6b6b6b;
-  --line: #e6e6e6;
+  --fg: #222222;
+  --muted: #666666;
+  --navy: #0d3a66;
+  --bar: #1c2127;
+  --band: #e4e4e4;
+  --line: #e2e2e2;
   --bg: #ffffff;
-  --accent: #2b50ec;
 
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 2rem;
-  --space-4: 4rem;
-  --space-5: 7rem;
+  --space-4: 3.5rem;
+  --space-5: 5rem;
 
-  --measure: 680px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --fg: #ededed;
-    --muted: #8f8f8f;
-    --line: #262626;
-    --bg: #0d0d0d;
-    --accent: #7d95ff;
-  }
+  --max: 1040px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 64px; scroll-behavior: smooth; }
 
 body {
   margin: 0;
   font-family: var(--font);
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 16px;
+  line-height: 1.75;
   color: var(--fg);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
 }
 
-a { color: inherit; text-decoration: none; }
-a:hover { color: var(--accent); }
+a { color: inherit; }
 
 .wrap {
-  max-width: var(--measure);
+  max-width: var(--max);
   margin: 0 auto;
   padding: 0 var(--space-3);
 }
 
-.label {
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
+/* 2단 (영문 | 국문) */
+.cols-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
 }
+/* 3단 (포커스) */
+.cols-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+@media (max-width: 760px) {
+  .cols-2, .cols-3 { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+/* 네모 불릿 목록 */
+.sq { margin: 0; padding: 0 0 0 1.2rem; list-style: square; }
+.sq li { padding: 0.1rem 0; }
+.sq li::marker { color: var(--fg); font-size: 0.8em; }

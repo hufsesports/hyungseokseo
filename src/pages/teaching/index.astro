@@ -1,0 +1,67 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import { teaching as t } from '../../data/teaching';
+---
+<Base lang="en" altPath={false} title="Teaching — Seo Hyung Seok (Henry Seo)" description={t.intro}>
+  <section class="wrap hero">
+    <p class="label">{t.title}</p>
+    <h1>{t.tagline}</h1>
+    <p class="intro">{t.intro}</p>
+  </section>
+
+  <Section title={t.approachTitle} id="approach">
+    <p class="lead">{t.approach}</p>
+    <ol class="stages">
+      {t.stages.map((s) => (
+        <li><span class="no">{s.no}</span><div><strong>{s.title}</strong><p>{s.body}</p></div></li>
+      ))}
+    </ol>
+  </Section>
+
+  {t.groups.map((g) => (
+    <Section title={g.title}>
+      <div class="courses">
+        {g.courses.map((c) => (
+          <article>
+            <h3>{c.name}</h3>
+            <p class="tags">{c.tags.join(' · ')}</p>
+            <p>{c.body}</p>
+            <ul class="dash">
+              {c.outcomes.map((o) => <li>{o}</li>)}
+            </ul>
+            {c.link && <p class="more"><a href={c.link.href}>{c.link.label} →</a></p>}
+          </article>
+        ))}
+      </div>
+    </Section>
+  ))}
+</Base>
+
+<style>
+  .hero { padding-top: var(--space-5); padding-bottom: var(--space-2); }
+  h1 {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+  .intro { margin: 0; color: var(--muted); }
+  .lead { margin: 0 0 var(--space-3); }
+  ol, ul { margin: 0; padding: 0; list-style: none; }
+  .stages li { display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.75rem; padding: 0.75rem 0; }
+  .stages li + li { border-top: 1px solid var(--line); }
+  .stages .no { font-size: 0.8rem; color: var(--accent); padding-top: 0.2rem; }
+  .stages p { margin: 0.15rem 0 0; color: var(--muted); font-size: 0.95rem; }
+  .courses { display: grid; gap: var(--space-4); }
+  article h3 { margin: 0; font-size: 1.15rem; font-weight: 600; }
+  article p { margin: 0 0 var(--space-2); }
+  .tags { margin: 0.25rem 0 var(--space-2) !important; font-size: 0.8rem; color: var(--accent); }
+  .dash li { padding: 0.1rem 0 0.1rem 1.85rem; position: relative; color: var(--muted); font-size: 0.95rem; }
+  .dash li::before {
+    content: ''; position: absolute; left: 0.25rem; top: 0.95em; width: 0.6rem; height: 1px; background: var(--muted);
+  }
+  .more { margin-top: var(--space-2) !important; }
+  .more a { border-bottom: 1px solid var(--line); }
+</style>

@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="dark" name="color-scheme"/>
+<title>Esports Experimental Research | Seo Hyung Seok</title>
+<meta content="A practicum-centered course page for designing and measuring feasible experiments in esports contexts." name="description"/>
+<meta content="esports experimental research, experimental design, quasi-experiment, gamification, measurement, learning analytics" name="keywords"/>
+<meta content="index,follow" name="robots"/>
+<meta content="Esports Experimental Research | Seo Hyung Seok" property="og:title"/>
+<meta content="Experimental design samples and measurement templates for esports contexts." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="assets/hero_composite.jpg" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Esports Experimental Research | Seo Hyung Seok" name="twitter:title"/>
+<meta content="Experimental design samples and measurement templates for esports contexts." name="twitter:description"/>
+<meta content="assets/hero_composite.jpg" name="twitter:image"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;family=Noto+Sans+KR:wght@300;400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+      --bg:#05070d;
+      --panel: rgba(255,255,255,.06);
+      --panel2: rgba(255,255,255,.04);
+      --line: rgba(255,255,255,.12);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --muted2: rgba(255,255,255,.58);
+      --max: 1060px;
+      --radius: 20px;
+      --radius2: 14px;
+      --top: 76px;
+      --shadow: 0 24px 60px rgba(0,0,0,.55);
+    }
+
+    *{ box-sizing:border-box; }
+    html, body{ height:100%; }
+    body{
+      margin:0;
+      color: var(--text);
+      background: radial-gradient(1200px 700px at 30% 10%, rgba(154,114,255,.10), transparent 55%),
+                  radial-gradient(1100px 700px at 80% 25%, rgba(94,194,255,.08), transparent 55%),
+                  linear-gradient(180deg, #04060c, #070b14 40%, #05070d);
+      font-family: Inter, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x:hidden;
+    }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; }
+
+    /* Topbar (always visible, hover effect kept) */
+    .topbar{
+      position:fixed; top:0; left:0; right:0;
+      height: var(--top);
+      z-index: 50;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(5,7,13,.65);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: background-color .18s ease, border-color .18s ease;
+    }
+    .topbar:hover{
+      background: rgba(5,7,13,.82);
+      border-bottom-color: rgba(255,255,255,.14);
+    }
+    .nav{
+      width:min(var(--max), calc(100% - 28px));
+      height:100%;
+      display:flex; align-items:center; gap:12px;
+      padding: 0 10px;
+    }
+    .brand{font-weight:700;font-size:14px;letter-spacing:-.02em;color:rgba(255,255,255,.92);text-decoration:none;white-space:nowrap;}
+    .links{ display:flex; align-items:center; gap:10px; margin-left:auto; }
+    .links a{
+      font-size: 13px;
+      color: rgba(255,255,255,.72);
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      transition: transform .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;
+      white-space: nowrap;
+    }
+    .links a:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.16);
+      color: rgba(255,255,255,.92);
+    }
+    .links a.active{
+      background: rgba(255,255,255,.10);
+      border-color: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+    }
+
+    .menuBtn{
+      display:none;
+      margin-left:auto;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 13px;
+      cursor:pointer;
+    }
+    .menuBtn:hover{ background: rgba(255,255,255,.09); }
+
+    /* Mobile menu overlay */
+    .overlay{
+      position: fixed; inset: 0;
+      z-index: 60;
+      background: rgba(0,0,0,.58);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display:none;
+    }
+    .overlay.show{ display:block; }
+    .sheet{
+      width: min(520px, calc(100% - 26px));
+      margin: calc(var(--top) + 16px) auto 0;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,12,20,.78);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .sheet .head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    .sheet .head strong{ font-size: 14px; }
+    .sheet .close{
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-size: 12px;
+    }
+    .sheet .close:hover{ background: rgba(255,255,255,.10); }
+    .sheet .body{
+      padding: 12px;
+      display:flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sheet a{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.86);
+    }
+    .sheet a:hover{ background: rgba(255,255,255,.08); }
+
+    /* Layout */
+    .wrap{
+      width:min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+      padding: calc(var(--top) + 26px) 0 84px;
+    }
+
+    /* Hero: background image stays as main */
+    .hero{
+      border-radius: calc(var(--radius) + 2px);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+      position: relative;
+      min-height: 0;
+      display:flex;
+      align-items:flex-end;
+    }
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.70) 55%, rgba(0,0,0,.86)),
+        url("hero_composite.jpg") center / cover no-repeat;
+      filter: saturate(1.05) contrast(1.05);
+      transform: scale(1.02);
+    }
+    .hero::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 520px at 26% 26%, rgba(154,114,255,.12), transparent 60%),
+        radial-gradient(900px 520px at 78% 24%, rgba(94,194,255,.10), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: .85;
+      pointer-events:none;
+    }
+    .heroInner{
+      position:relative;
+      padding: 18px 22px 20px;
+      width: 100%;
+    }
+    .kicker{
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.78);
+      margin-bottom: 10px;
+    }
+    h1{
+      margin:0 0 12px;
+      font-size: clamp(28px, 3.2vw, 52px);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+    .lead{
+      margin: 0;
+      max-width: 78ch;
+      color: rgba(255,255,255,.78);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .heroRow{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn{
+      display:inline-flex; align-items:center; gap:9px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.92);
+      font-size: 13px;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
+    .btn.primary{
+      border-color: rgba(94,194,255,.25);
+      background: linear-gradient(135deg, rgba(94,194,255,.18), rgba(154,114,255,.16));
+    }
+    .quick{
+      display:flex; flex-wrap:wrap; gap:10px;
+      justify-content:flex-end;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      color: rgba(255,255,255,.84);
+      font-size: 12px;
+    }
+    .pill i{
+      width:7px; height:7px; border-radius: 99px;
+      background: rgba(255,255,255,.75);
+      box-shadow: 0 0 0 3px rgba(255,255,255,.10);
+    }
+
+    /* Sections */
+    section{ scroll-margin-top: 96px; }
+    .section{
+      margin-top: 22px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: 0 16px 44px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .section .pad{ padding: 18px; }
+
+    .h2{
+      margin:0 0 10px;
+      font-size: 13px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.70);
+    }
+    .p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    /* 2x2 image grid (non-hero images) */
+    .cards{
+      display:grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 14px;
+    }
+    .story{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      overflow:hidden;
+      position: relative;
+      min-height: 320px;
+    }
+    .story .media{
+      position:absolute; inset:0;
+      background: center / cover no-repeat;
+      filter: saturate(1.06) contrast(1.06);
+      transform: scale(1.02);
+    }
+    .story .shade{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.82));
+    }
+    .story .body{
+      position:absolute; left: 14px; right: 14px; bottom: 14px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.32);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .story .time{
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+      margin-bottom: 6px;
+    }
+    .story strong{ display:block; font-size: 14px; letter-spacing:-.02em; }
+    .story p{ margin: 6px 0 0; color: rgba(255,255,255,.72); font-size: 13px; line-height: 1.55; }
+
+    /* Publications */
+    .pubList{ display:grid; gap: 12px; margin-top: 14px; }
+    .pub{
+      padding: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+    }
+    .pub strong{ display:block; font-size: 14px; line-height: 1.5; }
+    .pub span{ display:block; margin-top: 6px; color: var(--muted); font-size: 12.5px; line-height: 1.6; }
+    .pub a{
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top: 10px;
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      font-size: 12.5px;
+      color: rgba(255,255,255,.88);
+      transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+    }
+    .pub a:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18); }
+
+    /* Contact: keep values in one line */
+    .contactGrid{ display:grid; gap: 12px; margin-top: 14px; }
+    .contactCard{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+    }
+    .contactCard small{
+      display:block; color: rgba(255,255,255,.62);
+      font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      flex-wrap: nowrap;
+      margin-top: 10px;
+    }
+    .row:first-of-type{ margin-top: 0; }
+    .row .txt{
+      flex: 1 1 auto;
+      min-width: 0;
+      white-space: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .row .txt::-webkit-scrollbar{ display:none; }
+    .copy{
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.30);
+      color: rgba(255,255,255,.86);
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+      user-select:none;
+    }
+    .copy:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.18); }
+
+    footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(255,255,255,.46);
+      font-size: 12px;
+      padding: 12px 0 8px;
+    }
+
+    /* Research diagram */
+    .diagramWrap{
+      margin-top: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+      overflow:hidden;
+    }
+    .diagramTitle{
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
+      margin: 2px 2px 12px;
+    }
+    .diagram{
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 14px;
+      background: radial-gradient(900px 320px at 30% 30%, rgba(154,114,255,.10), transparent 60%),
+                  radial-gradient(900px 320px at 70% 35%, rgba(94,194,255,.10), transparent 60%),
+                  rgba(0,0,0,.20);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .diagramLegend{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content:flex-end;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      font-size: 12px;
+      color: rgba(255,255,255,.82);
+    }
+
+    /* Contact one-line bar */
+    .contactBar{
+      margin-top: 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+      overflow-x:auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .contactBar::-webkit-scrollbar{ display:none; }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.86);
+      font-size: 13px;
+      margin-right: 10px;
+      transition: transform .18s ease, background-color .18s ease, border-color .18s ease;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.18);
+    }
+
+    
+    /* Focus (Google Sheets sync) */
+    .focusGrid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 16px;
+    }
+    .focusCard{
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+      min-height: 130px;
+    }
+    .focusCard:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+    }
+    .focusCard h3{
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+    .focusCard p{
+      margin: 0;
+      color: rgba(255,255,255,.72);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .hint.small{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,.60);
+    }
+    .hint code{
+      padding: 2px 6px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+    }
+
+    /* Research Focus cards (fixed) */
+    .rfCards{
+      margin-top: 28px;
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .rfCard{
+      padding: 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .rfTitle{
+      font-weight: 820;
+      font-size: 15px;
+      letter-spacing: -.01em;
+      color: rgba(255,255,255,.92);
+    }
+    .rfDesc{
+      margin-top: 6px;
+      font-size: 13px;
+      line-height: 1.45;
+      color: rgba(255,255,255,.70);
+    }
+
+    /* Journey gallery (thumbnails + drag-to-scroll + lightbox) */
+    .journeyScroller{
+      margin-top: 12px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 10px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      cursor: grab;
+      user-select: none;
+    }
+    .journeyScroller.dragging{ cursor: grabbing; }
+    .journeyTrack{
+      display:flex;
+      gap: 12px;
+      align-items: stretch;
+      width: max-content;
+      padding: 2px;
+    }
+    
+    .journeyFilters{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.92);
+      font-size: 12px;
+      cursor: pointer;
+      user-select: none;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+    }
+    .chip:hover{ background: rgba(255,255,255,.08); transform: translateY(-1px); }
+    .chip[aria-pressed="true"]{
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.28);
+    }
+    .journeyItem{
+      position: relative;
+    }
+    .journeyCaption{
+      position:absolute;
+      left:10px; right:10px; bottom:10px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
+      font-size: 12px;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+      backdrop-filter: blur(6px);
+    }
+    .journeyItem:hover .journeyCaption,
+    .journeyItem:focus-visible .journeyCaption{
+      opacity: 1;
+      transform: translateY(0);
+    }
+.journeyItem{
+      width: 240px;
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+      padding: 0;
+      cursor: pointer;
+    }
+    /* when journeyItem is rendered as a <button> */
+    button.journeyItem{
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      color: inherit;
+    }
+    button.journeyItem:hover{
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      transform: translateY(-1px);
+    }
+    button.journeyItem:focus-visible{
+      outline: 2px solid rgba(94,194,255,.55);
+      outline-offset: 3px;
+    }
+    .journeyItem img{
+      display:block;
+      width:100%;
+      height: 160px;
+      object-fit: cover;
+      background: rgba(255,255,255,.06);
+    }
+
+    /* Lightbox */
+    .lightbox{
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 0;
+      background: rgba(0,0,0,.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .lightbox.show{ display:flex; }
+    .lightboxInner{
+      width: min(1080px, calc(100% - 26px));
+      max-height: calc(100% - 26px);
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(10,12,20,.70);
+      box-shadow: 0 24px 60px rgba(0,0,0,.60);
+      position: relative;
+    }
+    .lightboxClose{
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.32);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      padding: 8px 10px;
+      cursor:pointer;
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .lightboxClose:hover{ background: rgba(255,255,255,.10); }
+    .lightboxImgWrap{
+      width: 100%;
+      height: 100%;
+      max-height: calc(100vh - 90px);
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      background: rgba(0,0,0,.18);
+    }
+    .lightboxImg{
+      display:block;
+      width: 100%;
+      height: auto;
+    }
+
+    
+    .lightboxNav{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-size: 24px;
+      line-height: 1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      z-index: 2;
+    }
+    .lightboxNav:hover{ background: rgba(255,255,255,.10); }
+    .lightboxNav.prev{ left: 10px; }
+    .lightboxNav.next{ right: 10px; }
+    .lightboxMeta{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content: space-between;
+      padding: 10px 12px 12px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius: 0 0 18px 18px;
+    }
+    .lightboxOpenLink{
+      color: rgba(255,255,255,.92);
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.22);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .lightboxOpenLink:hover{ background: rgba(255,255,255,.10); }
+    .lightboxCaption{
+      font-size: 12px;
+      color: rgba(255,255,255,.78);
+      text-align: right;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+    @media (max-width: 520px){
+      .lightboxCaption{ white-space: normal; text-align:left; }
+      .lightboxMeta{ flex-direction: column; align-items: stretch; }
+      .lightboxOpenLink{ width: fit-content; }
+    }
+@media (max-width: 980px){
+      .rfCards{ grid-template-columns: 1fr; }
+      .journeyItem{ width: 72vw; }
+      .journeyItem img{ height: 44vw; max-height: 240px; }
+    }
+
+@media (max-width: 980px){
+      .researchMerged{ grid-template-columns: 1fr; }
+      .pubGrid{ grid-template-columns: 1fr; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .links{ display:none; }
+      .menuBtn{ display:inline-flex; }
+      .brand{ min-width: 0; }
+      .hero{ min-height: 58vh; }
+    }
+    @media (max-width: 820px){
+      .cards{ grid-template-columns: 1fr; }
+      .story{ min-height: 340px; }
+    }
+    @media (max-width: 560px){
+      :root{ --top: 86px; }
+      .heroInner{ padding: 18px; }
+      .hero{ min-height: 0; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .btn, .links a, .copy, .topbar{ transition:none !important; }
+    }
+  
+
+/* --- v6: industry pillar + simplified UI --- */
+.pills{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 10px}
+
+.heroInner{position:relative}
+
+.researchWheel{width:100%; max-width:920px; height:auto; display:block; margin:0 auto}
+.researchWheel .petal{fill:rgba(255,255,255,.03); stroke:rgba(255,255,255,.22); stroke-width:2.2; stroke-linejoin:round}
+.researchWheel .petalText{font-size:16px; fill:rgba(255,255,255,.86); font-weight:650}
+.researchWheel .centerTitle{font-size:20px; fill:rgba(255,255,255,.92); font-weight:800; letter-spacing:.2px}
+.researchWheel .centerSub{font-size:13px; fill:rgba(255,255,255,.70); font-weight:650}
+
+.footer{margin-top:36px; padding:18px 0 28px; border-top:1px solid rgba(255,255,255,.10)}
+.footInner{padding:0 22px; color:rgba(255,255,255,.66); font-size:13px}
+
+/* --- v10: Profile & Research refinement (remove Focus section + add Research Focus diagram) --- */
+.prLeft 
+.prLeft .p{margin-top:0}
+.prBlocks{display:grid; gap:12px; margin-top:14px}
+.prBlock{padding:14px 14px; border-radius:18px; border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.03)}
+.prBlock .prH{font-weight:800; letter-spacing:.2px; color:rgba(255,255,255,.92); margin-bottom:6px}
+.prBlock .prT{color:rgba(255,255,255,.74); font-size:14px; line-height:1.55}
+.prBlock .prT strong{color:rgba(255,255,255,.90)}
+
+.rfCard{padding:16px 16px; border-radius:20px; border:1px solid rgba(255,255,255,.12); background:rgba(10,14,28,.36); backdrop-filter: blur(12px)}
+.rfHint{margin-top:10px; color:rgba(255,255,255,.68); font-size:13px; line-height:1.5}
+.rfTitleInline{font-weight:800; color:rgba(255,255,255,.94)}
+.rfDescInline{color:rgba(255,255,255,.72)}
+.rfDiagram{width:100%; height:auto; display:block}
+.rfLine{stroke:rgba(255,255,255,.18); stroke-width:2}
+.rfCenter{fill:rgba(255,255,255,.03); stroke:rgba(255,255,255,.20); stroke-width:2}
+.rfCenterTitle{font-size:18px; font-weight:900; fill:rgba(255,255,255,.92)}
+.rfCenterSub{font-size:12px; font-weight:700; fill:rgba(255,255,255,.70)}
+.rfNodeRect{fill:rgba(255,255,255,.03); stroke:rgba(255,255,255,.20); stroke-width:2}
+.rfNodeText{font-size:14px; font-weight:800; fill:rgba(255,255,255,.90)}
+.rfNode{cursor:pointer}
+.rfNode:hover .rfNodeRect{stroke:rgba(255,255,255,.36); fill:rgba(255,255,255,.05)}
+.rfNode.active .rfNodeRect{stroke:rgba(255,255,255,.46); fill:rgba(255,255,255,.06)}
+
+@media (max-width: 820px){
+  .rfNodeText{font-size:13px}
+}
+
+@media (min-width: 900px){ .hero h1{ white-space: nowrap; } }
+
+.rfLabel{ font-weight: 800; color: rgba(255,255,255,.94); margin-bottom: 10px; letter-spacing: -.01em; }
+
+.rfText{ color: rgba(255,255,255,.74); line-height: 1.7; }
+
+/* --- v13: topbar contact icons + research focus 1x3 clickable + journey folder --- */
+.rightLinks{
+  margin-left: auto;
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+.links{ margin-left: 0 !important; }
+.menuBtn{ margin-left: 0 !important; }
+
+.topContacts{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+.iconLink{
+  width: 34px;
+  height: 34px;
+  display:grid;
+  place-items:center;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  text-decoration:none;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.iconLink:hover{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.22);
+  transform: translateY(-1px);
+}
+.iconLink:active{ transform: translateY(0); }
+
+.rfCards{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.rfCardLink{
+  display:block;
+  text-decoration:none;
+  cursor:pointer;
+  transition: transform .18s ease, border-color .18s ease, background-color .18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.rfCardLink::after{
+  content: "↗";
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  color: rgba(255,255,255,.60);
+  font-size: 14px;
+}
+.rfCardLink:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.20);
+  background: linear-gradient(135deg, rgba(94,194,255,.10), rgba(154,114,255,.08));
+}
+@media (max-width: 980px){
+  .rfCards{ grid-template-columns: 1fr; }
+}
+
+/* Hero Profile card */
+.heroProfileCard{
+  margin-top: 18px;
+  width: 100%;
+  max-width: none;
+  background: var(--glass);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+}
+
+.heroProfileTitle{
+  font-weight: 800;
+  letter-spacing: .02em;
+  margin-bottom: 8px;
+  opacity: .95;
+}
+.heroProfileCard .p{
+  margin: 10px 0 0 0;
+  opacity: .92;
+}
+
+
+/* --- Teaching page additions --- */
+.teachLead{max-width: 980px}
+.diagramWrap{
+  margin-top: 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  padding: 14px;
+  overflow:hidden;
+}
+.teachingWheel{width:100%; height:auto; display:block; margin:0 auto; max-width: 980px}
+.twLine{stroke:rgba(255,255,255,.18); stroke-width:2}
+.twCenter{fill:rgba(255,255,255,.03); stroke:rgba(255,255,255,.22); stroke-width:2.2}
+.twCenterTitle{font-size:20px; font-weight:900; fill:rgba(255,255,255,.92)}
+.twCenterSub{font-size:12.8px; font-weight:700; fill:rgba(255,255,255,.70)}
+.twNodeRect{fill:rgba(255,255,255,.03); stroke:rgba(255,255,255,.22); stroke-width:2}
+.twNodeTitle{font-size:13.4px; font-weight:900; fill:rgba(255,255,255,.92)}
+.twNodeSub{font-size:12.2px; font-weight:650; fill:rgba(255,255,255,.72)}
+.twNode{cursor:pointer}
+.twNode:hover .twNodeRect{stroke:rgba(255,255,255,.40); fill:rgba(255,255,255,.05)}
+.twLegend{display:flex; gap:10px; flex-wrap:wrap; margin-top: 12px}
+.twLegend .pill{background: rgba(0,0,0,.20)}
+.courseGrid{
+  margin-top: 18px;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.courseCard{
+  padding: 16px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(10,14,28,.36);
+  backdrop-filter: blur(12px);
+}
+.courseTitle{
+  font-weight: 900;
+  letter-spacing: -.01em;
+  color: rgba(255,255,255,.94);
+  font-size: 15px;
+  margin: 0;
+}
+.courseMeta{
+  margin-top: 8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+}
+.courseBody{margin-top: 10px; color: rgba(255,255,255,.74); line-height: 1.7; font-size: 13.5px}
+.courseBody ul{margin: 10px 0 0 18px; padding: 0}
+.courseBody li{margin: 6px 0}
+.subH{
+  margin: 24px 0 10px;
+  font-size: 12px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.70);
+}
+@media (max-width: 980px){
+  .courseGrid{ grid-template-columns: 1fr; }
+  .twNodeTitle{font-size: 12.8px}
+  .twNodeSub{font-size: 11.8px}
+}
+
+/* --- Experimental Research page additions --- */
+.expLead{max-width: 980px}
+.expTableWrap{
+  margin-top: 14px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.03);
+  padding: 14px;
+  overflow:auto;
+}
+.expTable{
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+  font-size: 13px;
+}
+.expTable th, .expTable td{
+  border: 1px solid rgba(255,255,255,.10);
+  padding: 12px 12px;
+  vertical-align: top;
+}
+.expTable th{
+  text-align: left;
+  font-weight: 900;
+  color: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.04);
+}
+.expTable td{
+  color: rgba(255,255,255,.74);
+  line-height: 1.65;
+}
+.expTable .hl{
+  background: rgba(255,200,120,.10);
+  color: rgba(255,255,255,.86);
+  font-weight: 850;
+}
+.expCards{
+  margin-top: 14px;
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 980px){
+  .expCards{ grid-template-columns: 1fr; }
+}
+.expCard{
+  padding: 16px 16px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(10,14,28,.36);
+  backdrop-filter: blur(12px);
+}
+.expTitle{
+  font-weight: 900;
+  letter-spacing: -.01em;
+  color: rgba(255,255,255,.94);
+  font-size: 15px;
+  margin: 0;
+}
+.expMeta{
+  margin-top: 8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap: 8px;
+}
+.kv{
+  margin-top: 10px;
+  display:grid;
+  grid-template-columns: 120px 1fr;
+  gap: 10px 12px;
+}
+.kv .k{
+  color: rgba(255,255,255,.66);
+  font-weight: 900;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+.kv .v{
+  color: rgba(255,255,255,.78);
+  font-weight: 650;
+  line-height: 1.65;
+  font-size: 13.5px;
+}
+.miniTable{
+  margin-top: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.miniTable table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.8px;
+}
+.miniTable th, .miniTable td{
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.miniTable th{
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.88);
+  font-weight: 900;
+  width: 34%;
+}
+.miniTable td{
+  color: rgba(255,255,255,.74);
+  line-height: 1.6;
+}
+.codeLike{
+  margin-top: 10px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  padding: 12px;
+  color: rgba(255,255,255,.78);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12.2px;
+  line-height: 1.6;
+  overflow:auto;
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <nav aria-label="Primary" class="nav">
+    <a class="brand" href="/">Seo Hyung Seok (Henry Seo)</a>
+
+    <div aria-label="Sections" class="links"><a class="navLink" href="https://sport.hufs.ac.kr/profl/sport/71/4585/artclView.do" rel="noopener" target="_blank">HUFS</a></div>
+<div aria-label="Top contact links" class="topContacts">
+	<a aria-label="Email esports@hufs.ac.kr" class="iconLink" href="mailto:esports@hufs.ac.kr" title="esports@hufs.ac.kr"><img alt="" src="/legacy/hufs.png"/></a>
+	<a aria-label="Email snupe96@gmail.com" class="iconLink" href="mailto:snupe96@gmail.com" title="snupe96@gmail.com"><img alt="" src="/legacy/gmail.png"/></a>
+	<a aria-label="Instagram @seo.hyeongseok" class="iconLink" href="https://instagram.com/seo.hyeongseok" rel="noreferrer" target="_blank" title="@seo.hyeongseok"><img alt="" src="/legacy/instagram.png"/></a>
+</div>
+    </div>
+
+    <button aria-label="Open menu" class="menuBtn" id="menuBtn" type="button">Menu</button>
+  </nav>
+</header>
+
+<div aria-hidden="true" class="overlay" id="overlay">
+  <div aria-label="Mobile menu" aria-modal="true" class="sheet" role="dialog">
+    <div class="head">
+      <strong>Menu</strong>
+      <button class="close" id="closeMenu" type="button">Close</button>
+    </div>
+    <div class="body">
+      <a href="#top"><span>Top</span><span>→</span></a>
+      <a href="#overview"><span>Course Overview</span><span>→</span></a>
+      <a href="#designs"><span>Design Library</span><span>→</span></a>
+      <a href="#samples"><span>Measurement Samples</span><span>→</span></a>
+      <a href="/teaching/"><span>Back to Teaching</span><span>→</span></a>
+    </div>
+  </div>
+</div>
+
+<main class="wrap" id="top">
+  <section class="hero" id="home">
+    <div class="heroInner">
+      <div class="kicker">Course Page</div>
+      <h1 class="heroTitle">Esports Experimental Research.</h1>
+      <p class="heroLead expLead">
+        A practicum-centered course where students design, implement, operate, and report feasible experiments in esports contexts—using simple games, gamified tools, or controlled modifications to existing titles.
+      </p>
+
+      <div class="pills" aria-label="Keywords">
+        <span class="pill"><i></i>Experimental &amp; quasi-experimental design</span>
+        <span class="pill"><i></i>Gamification &amp; feedback systems</span>
+        <span class="pill"><i></i>Behavioral logs + brief surveys</span>
+        <span class="pill"><i></i>Ethics &amp; reproducibility</span>
+      </div>
+
+      <div class="heroProfileCard" aria-label="Outcome">
+        <div class="heroProfileTitle">Primary outcome</div>
+        <p class="p">
+          Students complete a reproducible research package: experiment protocol, manipulation materials, logging schema, anonymized dataset, analysis notebook (or report), and a concise write-up suitable for a class research showcase.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="overview" aria-label="Course overview">
+    <div class="pad">
+      <div class="h2">Course Overview</div>
+      <p class="p">
+        Students either (a) develop a lightweight game or gamified experimental tool, or (b) adapt an existing game environment by introducing measurable tasks, feedback, or constraints.
+        They then define <strong>treatment</strong> and <strong>control</strong> conditions, operate the study with ethical procedures, and collect data through performance logs and short surveys.
+      </p>
+
+      <div class="courseGrid" aria-label="Course flow">
+        <article class="courseCard">
+          <h3 class="courseTitle">1) Build an experimental tool</h3>
+          <div class="courseBody">
+            Create a minimal but measurable environment (web mini-game, custom mode, or task layer) where outcomes like accuracy, reaction time, success rate, and completion time can be logged reliably.
+          </div>
+        </article>
+        <article class="courseCard">
+          <h3 class="courseTitle">2) Manipulate one factor (A/B)</h3>
+          <div class="courseBody">
+            Implement a single, clear manipulation (e.g., feedback/reward style, information availability, or constraint intensity), and hold other elements constant to strengthen internal validity.
+          </div>
+        </article>
+        <article class="courseCard">
+          <h3 class="courseTitle">3) Collect logs + brief surveys</h3>
+          <div class="courseBody">
+            Capture behavioral events (attempts, timing, accuracy, scores) and add minimal self-report measures (engagement, perceived workload, collaboration quality, or purchase intent).
+          </div>
+        </article>
+        <article class="courseCard">
+          <h3 class="courseTitle">4) Ethics &amp; reproducibility</h3>
+          <div class="courseBody">
+            Apply consent, anonymization, and data management rules. Deliver a replicable protocol and transparent reporting (materials, procedures, and dataset documentation).
+          </div>
+        </article>
+      </div>
+      </div>
+  </section>
+
+  <section class="section" id="designs" aria-label="Design library">
+    <div class="pad">
+      <div class="h2">Three A/B Design Templates</div>
+      <p class="p">
+        The table below summarizes three practical experimental designs that fit common esports contexts and can be measured with lightweight logging and short survey items.
+      </p>
+
+      <div class="expTableWrap" role="region" aria-label="Experimental design summary table">
+        <table class="expTable">
+          <thead>
+            <tr>
+              <th style="width:72px">No.</th>
+              <th>Topic</th>
+              <th>A/B Condition Example</th>
+              <th>Key Measures (Log / Survey)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1</strong></td>
+              <td class="hl">Feedback/Reward → performance &amp; engagement</td>
+              <td>A: score only<br/>B: score + basic level-up / consecutive success bonus</td>
+              <td>Accuracy, success rate, reaction time, score, attempts, dwell time, re-participation intention (1 item)</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td class="hl">Information/Communication constraint → team performance</td>
+              <td>A: open information sharing<br/>B: asymmetric information or limited call time</td>
+              <td>Mission success rate, completion time, mistakes, team satisfaction / collaboration difficulty (2–3 items)</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td class="hl">In-game shop message (scarcity / social proof) → choice behavior</td>
+              <td>A: neutral message<br/>B: “Only today/limited quantity” or “Most people choose” message</td>
+              <td>Choice rate (click/purchase), cart actions, purchase intention (1 item), optional virtual currency spend</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="samples" aria-label="Measurement samples">
+    <div class="pad">
+      <div class="h2">Measurement Samples</div>
+      <p class="p">
+        Below are sample “measurement packs” for each design: a feasible task, manipulation, logging schema, survey items, and a minimal analysis approach.
+        These are templates students can directly implement in a small web tool or a controlled game environment.
+      </p>
+
+      <div class="expCards" aria-label="Sample packs">
+
+        <!-- Sample 1 -->
+        <article class="expCard" id="sample-feedback">
+          <h3 class="expTitle">Template 1 · Feedback/Reward → Performance &amp; Engagement</h3>
+          <div class="expMeta">
+            <span class="pill"><i></i>A/B Experiment</span>
+            <span class="pill"><i></i>Individual task</span>
+            <span class="pill"><i></i>Logs + 1 survey item</span>
+          </div>
+
+          <div class="kv">
+            <div class="k">Task</div>
+            <div class="v">A 60–90 second “micro-skill” game (e.g., target tapping, aim-trainer, reaction click, or timed accuracy challenge) with multiple trials.</div>
+
+            <div class="k">Manipulation</div>
+            <div class="v">
+              <strong>A</strong>: score only (end-of-round points)<br/>
+              <strong>B</strong>: score + progression feedback (level-up bar) + bonus for consecutive successful trials.
+            </div>
+
+            <div class="k">Hypothesis</div>
+            <div class="v">Enhanced feedback/reward increases persistence (more attempts, longer dwell time) and improves performance indicators (accuracy, success rate, reaction time).</div>
+          </div>
+
+          <div class="miniTable">
+            <table>
+              <tr><th>Logged metrics</th><td>accuracy (% correct), success_rate, reaction_time_ms (median), score_total, attempts, session_duration_sec</td></tr>
+              <tr><th>Survey (1 item)</th><td>Re-participation intention: “I would like to play again under the same rules.” (1–7 Likert)</td></tr>
+              <tr><th>Minimal analysis</th><td>Between-group comparison (t-test / Mann–Whitney) for key metrics; report effect size (Cohen’s d) and confidence intervals.</td></tr>
+            </table>
+          </div>
+        </article>
+
+        <!-- Sample 2 -->
+        <article class="expCard" id="sample-comm">
+          <h3 class="expTitle">Template 2 · Info/Communication Constraint → Team Performance</h3>
+          <div class="expMeta">
+            <span class="pill"><i></i>A/B Experiment</span>
+            <span class="pill"><i></i>Team task</span>
+            <span class="pill"><i></i>Logs + 2–3 survey items</span>
+          </div>
+
+          <div class="kv">
+            <div class="k">Task</div>
+            <div class="v">A cooperative mission (2–4 players) where roles have complementary functions (e.g., “Navigator” sees the full map; “Operator” executes actions) and success requires coordination.</div>
+
+            <div class="k">Manipulation</div>
+            <div class="v">
+              <strong>A</strong>: open information sharing (full map/instructions visible to all, or unlimited voice/text).<br/>
+              <strong>B</strong>: asymmetric information (partial map per role) or communication time limit (e.g., 10 seconds call per minute).
+            </div>
+
+            <div class="k">Hypothesis</div>
+            <div class="v">Constraints reduce mission success and increase errors/time, while raising perceived collaboration difficulty (and possibly lowering satisfaction).</div>
+          </div>
+
+          <div class="miniTable">
+            <table>
+              <tr><th>Logged metrics</th><td>mission_success (0/1), completion_time_sec, error_count, retry_count, key-action timing (optional)</td></tr>
+              <tr><th>Survey (2–3)</th><td>
+                Team satisfaction (1–7), Perceived coordination difficulty (1–7), Communication adequacy (1–7)
+              </td></tr>
+              <tr><th>Minimal analysis</th><td>Compare success rates (χ² / logistic regression) and time/error outcomes (t-test / ANCOVA with prior skill as covariate if needed).</td></tr>
+            </table>
+          </div>
+        </article>
+
+        <!-- Sample 3 -->
+        <article class="expCard" id="sample-shop">
+          <h3 class="expTitle">Template 3 · In-game Shop Message → Choice Behavior</h3>
+          <div class="expMeta">
+            <span class="pill"><i></i>A/B Experiment</span>
+            <span class="pill"><i></i>Behavioral economics</span>
+            <span class="pill"><i></i>Logs + 1 survey item</span>
+          </div>
+
+          <div class="kv">
+            <div class="k">Task</div>
+            <div class="v">A simulated in-game shop with 6–10 items (cosmetics or utility items) and a fixed budget (virtual tokens). Students choose items under time and budget constraints.</div>
+
+            <div class="k">Manipulation</div>
+            <div class="v">
+              <strong>A</strong>: neutral copy (“New item available”).<br/>
+              <strong>B</strong>: persuasive copy (choose one):<br/>
+              (1) scarcity: “Only today / limited quantity” or<br/>
+              (2) social proof: “Most players choose this.”
+            </div>
+
+            <div class="k">Hypothesis</div>
+            <div class="v">Persuasive copy increases click-through and purchase probability for highlighted items and may increase total spending of virtual currency.</div>
+          </div>
+
+          <div class="miniTable">
+            <table>
+              <tr><th>Logged metrics</th><td>item_click (0/1), add_to_cart (0/1), purchase (0/1), total_spend_tokens, time_to_choice_sec</td></tr>
+              <tr><th>Survey (1 item)</th><td>Purchase intention: “If this were real, I would consider purchasing the highlighted item.” (1–7 Likert)</td></tr>
+              <tr><th>Minimal analysis</th><td>Compare conversion rates (χ² / logistic regression); compare spending/time (t-test). Optionally segment by prior preference.</td></tr>
+            </table>
+          </div>
+        </article>
+
+        <!-- Ethics / Data management -->
+        <article class="expCard" id="sample-ethics">
+          <h3 class="expTitle">Ethics &amp; Data Management (Minimum Checklist)</h3>
+          <div class="expMeta">
+            <span class="pill"><i></i>Consent</span>
+            <span class="pill"><i></i>Anonymization</span>
+            <span class="pill"><i></i>Reproducibility</span>
+          </div>
+
+          <div class="kv">
+            <div class="k">Consent</div>
+            <div class="v">Provide a short information sheet: purpose, tasks, expected duration, risks, voluntary participation, and contact. Record consent before data collection.</div>
+
+            <div class="k">Anonymize</div>
+            <div class="v">Use participant IDs (no names). Separate consent forms from datasets. Remove identifiers and store raw data securely.</div>
+
+            <div class="k">Data docs</div>
+            <div class="v">Create a data dictionary: variable definitions, units, missing codes, and aggregation rules. Include a short replication note (steps to run the study).</div>
+
+            <div class="k">Deliverable</div>
+            <div class="v">Protocol + materials + dataset (anonymized) + analysis + report (methods, results, limitations, implications).</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer aria-label="Footer" class="footer">
+  <div class="wrap">
+    <div class="footInner">
+      <div class="footCopy">© <span id="year"></span> Seo Hyung Seok. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const overlay = document.getElementById('overlay');
+  const closeMenu = document.getElementById('closeMenu');
+
+  function openMenu(){
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+  }
+  function closeMenuFn(){
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+  }
+
+  menuBtn?.addEventListener('click', openMenu);
+  closeMenu?.addEventListener('click', closeMenuFn);
+  overlay?.addEventListener('click', (e) => { if(e.target === overlay) closeMenuFn(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeMenuFn(); });
+</script>
+
+</body>
+</html>

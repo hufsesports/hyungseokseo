@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import { copy, links, type Lang } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  /** 다른 언어 버전 경로. false면 언어 전환을 숨김(한 언어만 있는 페이지) */
+  altPath?: string | false;
+}
+
+const { lang, title, description, altPath } = Astro.props;
+const t = copy[lang];
+const pageTitle = title ?? t.meta.title;
+const pageDesc = description ?? t.meta.description;
+const site = Astro.site?.origin ?? 'https://hyungseokseo.com';
+const canonical = new URL(Astro.url.pathname, site).href;
+const otherLang: Lang = lang === 'ko' ? 'en' : 'ko';
+const otherHref = altPath === false ? null : (altPath ?? t.langSwitch.href);
+const otherLabel = lang === 'ko' ? 'EN' : 'KR';
+const home = lang === 'ko' ? '/' : '/en/';
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Seo Hyung Seok',
+  alternateName: ['Henry Seo', '서형석', 'Hyungseok Seo'],
+  url: site,
+  jobTitle: 'Adjunct Professor',
+  affiliation: { '@type': 'CollegeOrUniversity', name: 'Hankuk University of Foreign Studies' },
+  email: links.emailWork,
+  sameAs: [links.scholar, links.hufs, links.instagram],
+  knowsAbout: ['Esports', 'Esports governance', 'Tournament operations', 'Sports industry'],
+};
+---
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={canonical} />
+    {otherHref && <link rel="alternate" hreflang={lang} href={canonical} />}
+    {otherHref && <link rel="alternate" hreflang={otherLang} href={new URL(otherHref, site).href} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/journey/kespa_forum2_2025.webp', site).href} />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <script type="application/ld+json" set:html={JSON.stringify(person)} />
+  </head>
+  <body>
+    <header class="wrap top">
+      <a href={home} class="mark">{lang === 'ko' ? '서형석' : 'Henry Seo'}</a>
+      <nav>
+        {t.nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        {otherHref && <a href={otherHref} class="lang" hreflang={otherLang}>{otherLabel}</a>}
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="wrap foot">
+      <span>© {new Date().getFullYear()} Seo Hyung Seok</span>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-3);
+    padding-bottom: var(--space-3);
+    font-size: 0.9rem;
+  }
+  .mark { font-weight: 600; }
+  nav { display: flex; gap: 1.25rem; color: var(--muted); }
+  .lang { letter-spacing: 0.08em; }
+  .foot {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-3);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>

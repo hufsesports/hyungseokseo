@@ -1,0 +1,57 @@
+---
+import { journey, type Lang } from '../data/site';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+---
+<div class="strip" tabindex="0" aria-label="Journey">
+  {journey.map((j) => (
+    <figure>
+      <a href={j.src} target="_blank" rel="noopener">
+        <img src={j.src} alt={j[lang]} loading="lazy" />
+      </a>
+      <figcaption><span class="y">{j.year}</span>{j[lang]}</figcaption>
+    </figure>
+  ))}
+</div>
+
+<style>
+  .strip {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--space-2);
+    /* 본문 폭을 넘어 화면 끝까지 */
+    margin-right: calc(50% - 50vw);
+    padding-right: var(--space-3);
+    scrollbar-width: thin;
+  }
+  figure {
+    margin: 0;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: min-content;
+  }
+  img {
+    display: block;
+    height: 240px;
+    width: auto;
+    max-width: 360px;
+    object-fit: cover;
+    border-radius: 4px;
+    background: var(--line);
+  }
+  figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.45;
+    min-width: 120px;
+  }
+  .y {
+    display: block;
+    color: var(--fg);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

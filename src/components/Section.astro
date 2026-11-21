@@ -1,0 +1,21 @@
+---
+// 모든 섹션의 공통 틀. 새 섹션도 이 컴포넌트로 감쌉니다.
+interface Props { title: string; id?: string }
+const { title, id } = Astro.props;
+---
+<section class="wrap section" id={id}>
+  <h2 class="label">{title}</h2>
+  <slot />
+</section>
+
+<style>
+  .section {
+    padding-top: var(--space-4);
+  }
+  h2 {
+    margin: 0 0 var(--space-3);
+    font-weight: 500;
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid var(--line);
+  }
+</style>

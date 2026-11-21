@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Band from './Band.astro';
 import Hero from './Hero.astro';
 import Journey from './Journey.astro';
-import { hero, intro, career, focus, links } from '../data/site';
+import { hero, intro, career, education, publications, focus, links } from '../data/site';
 ---
 <Base current="Home">
   <Hero title={hero.tagline} sub={hero.sub} />
@@ -16,9 +16,30 @@ import { hero, intro, career, focus, links } from '../data/site';
   </Band>
 
   <Band title="Career" id="career">
+    <ol class="tl">
+      {career.map((c) => (
+        <li>
+          <span class="d">{c.date}</span>
+          <div>
+            <p class="k">{c.ko}</p>
+            <p class="e">{c.en}</p>
+            {c.sub && (
+              <ul class="subtl">
+                {c.sub.map((x) => (
+                  <li><span class="d">{x.date}</span><span>{x.ko} <span class="e">· {x.en}</span></span></li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </Band>
+
+  <Band title="Education & Credentials" id="education">
     <div class="cols-2">
-      <ul class="sq" lang="en">{career.en.map((c) => <li>{c}</li>)}</ul>
-      <ul class="sq" lang="ko">{career.ko.map((c) => <li>{c}</li>)}</ul>
+      <ul class="sq" lang="en">{education.en.map((c) => <li>{c}</li>)}</ul>
+      <ul class="sq" lang="ko">{education.ko.map((c) => <li>{c}</li>)}</ul>
     </div>
   </Band>
 
@@ -36,6 +57,19 @@ import { hero, intro, career, focus, links } from '../data/site';
           <a class="more" href={f.href}>Learn more →</a>
         </div>
       ))}
+    </div>
+  </Band>
+
+  <Band title="Publications" id="publications">
+    <div class="pubs">
+      <h3 class="h3">Papers · 논문</h3>
+      <ul class="sq">{publications.papers.map((x) => <li>{x}</li>)}</ul>
+      <h3 class="h3">Book · 저서</h3>
+      <ul class="sq">{publications.books.map((x) => <li>{x}</li>)}</ul>
+      <h3 class="h3">Research Projects · 연구 용역</h3>
+      <ul class="sq">{publications.projects.map((x) => <li>{x}</li>)}</ul>
+      <h3 class="h3">Presentations · 학회 발표</h3>
+      <ul class="sq">{publications.talks.map((x) => <li>{x}</li>)}</ul>
     </div>
   </Band>
 
@@ -67,6 +101,27 @@ import { hero, intro, career, focus, links } from '../data/site';
 </Base>
 
 <style>
+  .tl { margin: 0; padding: 0; list-style: none; }
+  .tl > li {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1.5rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .tl > li:first-child { border-top: 1px solid var(--line); }
+  .d { color: var(--navy); font-weight: 600; font-size: 0.9rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .k { margin: 0; font-weight: 600; }
+  .e { margin: 0; color: var(--muted); font-size: 0.92rem; font-weight: 400; }
+  .subtl { margin: 0.6rem 0 0; padding: 0; list-style: none; font-size: 0.92rem; }
+  .subtl li { display: grid; grid-template-columns: 9.5rem 1fr; gap: 1rem; padding: 0.15rem 0; }
+  .subtl .d { font-weight: 500; font-size: 0.85rem; color: var(--muted); }
+  .pubs .h3:not(:first-child) { margin-top: var(--space-3); }
+  .pubs .sq li { padding: 0.3rem 0; }
+  @media (max-width: 760px) {
+    .tl > li { grid-template-columns: 1fr; gap: 0.2rem; }
+    .subtl li { grid-template-columns: 1fr; gap: 0; padding: 0.3rem 0; }
+  }
   .prose p { margin: 0 0 1rem; }
   .prose :global(b) { font-weight: 700; }
   .center { text-align: center; }

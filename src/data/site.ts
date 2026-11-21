@@ -24,8 +24,7 @@ export const meta = {
 };
 
 export const hero = {
-  title: 'Seo Hyung Seok',
-  sub: 'Henry Seo · 서형석',
+  sub: 'Seo Hyung Seok (Henry Seo) · 서형석',
   tagline: 'From E to F — Esports to Future Sports.',
 };
 

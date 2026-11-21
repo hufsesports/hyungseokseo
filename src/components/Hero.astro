@@ -28,14 +28,12 @@ const { title, sub, tagline, image = '/hero.webp', compact = false } = Astro.pro
   }
   .hero.compact { min-height: 260px; }
   .box {
-    border: 3px solid #fff;
-    padding: 1.6rem 3rem;
-    max-width: 880px;
+    max-width: 920px;
     width: 100%;
   }
   h1 {
     margin: 0;
-    font-size: clamp(2rem, 5.2vw, 3.1rem);
+    font-size: clamp(1.9rem, 4.8vw, 3rem);
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.2;
@@ -43,7 +41,6 @@ const { title, sub, tagline, image = '/hero.webp', compact = false } = Astro.pro
   .sub { margin: 0.5rem 0 0; font-size: 1.05rem; color: #d8dde3; }
   .tagline { margin: 0; font-size: 1.05rem; font-style: italic; color: #e9edf1; }
   @media (max-width: 760px) {
-    .box { padding: 1.2rem 1.25rem; }
     .hero { min-height: 300px; }
   }
 </style>

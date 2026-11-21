@@ -6,7 +6,7 @@ import Journey from './Journey.astro';
 import { hero, intro, career, focus, links } from '../data/site';
 ---
 <Base current="Home">
-  <Hero title={hero.title} sub={hero.sub} tagline={hero.tagline} />
+  <Hero title={hero.tagline} sub={hero.sub} />
 
   <Band title="Introduction" id="introduction">
     <div class="cols-2 prose">

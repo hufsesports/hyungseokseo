@@ -69,6 +69,7 @@ export const career: { date: string; ko: string; en: string; sub?: { date: strin
 
 export const education = {
   en: [
+    'Ph.D. student (in progress)',
     'B.A., Seoul National University',
     'M.S., Hankuk University of Foreign Studies',
     'Secondary School Teacher Certificate in Physical Education, Grade 2 (Ministry of Education)',
@@ -76,6 +77,7 @@ export const education = {
     "Minister's Commendation, Ministry of Culture, Sports and Tourism — for contributing to the founding of the Korea Disabled Esports Federation",
   ],
   ko: [
+    '박사과정 재학 중',
     '서울대학교 학사',
     '한국외국어대학교 석사',
     '2급 체육 정교사 자격 (교육부)',

@@ -29,3 +29,10 @@ npm run build    # dist/ 생성
 - GitHub 저장소 연결 → Framework preset: Astro
 - Build command: `npm run build` / Output: `dist`
 - Custom domains에 `hyungseokseo.com` 추가
+
+## T1A PTE 101 (`/pte101/`)
+- 문구·주차·과제 문항: `src/data/pte101.ts` (문항 코드 B1, Q1… 는 응답 시트와 연결되므로 유지)
+- 웰컴과제 응답 저장: Google 시트 + Apps Script 웹 앱 (`tools/pte101/Code.gs`)
+  1. 응답 시트 → 확장 프로그램 → Apps Script → `Code.gs` 내용 붙여넣기 (CLASS_CODE 확인)
+  2. 배포 → 새 배포 → 웹 앱 / 실행: 나 / 액세스: 모든 사용자 → URL 복사
+  3. `src/data/pte101.ts`의 `endpoint`에 URL 입력 → 배포

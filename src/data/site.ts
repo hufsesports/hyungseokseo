@@ -14,6 +14,7 @@ export const nav = [
   { label: 'Publications', href: '/#publications' },
   { label: 'Journey', href: '/#journey' },
   { label: 'Teaching', href: '/teaching/' },
+  { label: 'T1A PTE', href: '/pte101/' },
   { label: 'QA Hub', href: '/qahub/' },
   { label: 'Contact', href: '/#contact' },
 ];

@@ -27,7 +27,8 @@ export const meta = {
 
 export const hero = {
   sub: 'Seo Hyung Seok (Henry Seo) · 서형석',
-  tagline: 'From E to F — Esports to Future Sports.',
+  tagline: 'From E to F',
+  tagline2: ': Esports to Future Sports',
 };
 
 // <b>…</b> 로 강조할 부분을 감쌉니다.
@@ -47,7 +48,7 @@ export const career: { date: string; ko: string; en: string; sub?: { date: strin
   { date: '2024.03 –', ko: '한국외국어대학교 글로벌스포츠산업학부 겸임교수', en: 'Adjunct Professor, Division of Global Sports Industry, HUFS' },
   { date: '2023.01 –', ko: '사단법인 한국대학e스포츠발전협의회 이사', en: 'Board Member, Korea University Esports Development Council' },
   { date: '2023.01 –', ko: '재단법인 꿈나무육성테니스재단 이사', en: 'Board Member, Kkumnamu Youth Tennis Foundation' },
-  { date: '2018.03 –', ko: 'FEG(Future E-sports Group) 파트너', en: 'Partner, Future E-sports Group (FEG)' },
+  { date: '2018.03 –', ko: 'FEG 파트너', en: 'Partner, FEG' },
   {
     date: '2008.04 – 2020',
     ko: '한국e스포츠협회(KeSPA) — 국내·해외사업 총괄 및 대관 담당',
@@ -156,7 +157,7 @@ export const journey = [
   { src: '/journey/un_2010.webp', year: 2010, en: 'United Nations', ko: 'UN' },
   { src: '/journey/imag_2013.webp', year: 2013, en: 'Incheon 2013 AIMAG · Technical Delegates Meeting', ko: '인천 실내무도아시아경기대회 기술대표 회의' },
   { src: '/journey/gamemeca_2013.webp', year: 2013, en: 'GameMeca', ko: '게임메카' },
-  { src: '/journey/feg_2019.webp', year: 2019, en: 'Future E-sports Group', ko: 'Future E-sports Group' },
+  { src: '/journey/feg_2019.webp', year: 2019, en: 'FEG', ko: 'FEG' },
   { src: '/journey/krkpl_2019.webp', year: 2019, en: 'KRKPL', ko: 'KRKPL' },
   { src: '/journey/dailyesportsb_2019.webp', year: 2019, en: 'Daily Esports interview', ko: '데일리e스포츠 인터뷰' },
   { src: '/journey/ecea_2021.webp', year: 2021, en: 'ECEA', ko: 'ECEA' },

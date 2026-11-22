@@ -1,10 +1,10 @@
 ---
-interface Props { title: string; sub?: string; tagline?: string; image?: string; compact?: boolean }
-const { title, sub, tagline, image = '/hero.webp', compact = false } = Astro.props;
+interface Props { title: string; title2?: string; sub?: string; tagline?: string; image?: string; compact?: boolean }
+const { title, title2, sub, tagline, image = '/hero.webp', compact = false } = Astro.props;
 ---
 <section class:list={['hero', { compact }]} style={`--img:url(${image})`}>
   <div class="box">
-    <h1>{title}</h1>
+    <h1>{title}{title2 && <span class="l2">{title2}</span>}</h1>
     {sub && <p class="sub">{sub}</p>}
   </div>
   {tagline && <p class="tagline">{tagline}</p>}
@@ -33,11 +33,12 @@ const { title, sub, tagline, image = '/hero.webp', compact = false } = Astro.pro
   }
   h1 {
     margin: 0;
-    font-size: clamp(1.9rem, 4.8vw, 3rem);
+    font-size: clamp(1.3rem, 5.6vw, 3rem);
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.2;
   }
+  .l2 { display: block; }
   .sub { margin: 0.5rem 0 0; font-size: 1.05rem; color: #d8dde3; }
   .tagline { margin: 0; font-size: 1.05rem; font-style: italic; color: #e9edf1; }
   @media (max-width: 760px) {

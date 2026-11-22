@@ -69,17 +69,17 @@ export const career: { date: string; ko: string; en: string; sub?: { date: strin
 
 export const education = {
   en: [
-    'Ph.D. student (in progress)',
+    'Ph.D. Program (in progress), Department of Global Sports, HUFS',
     'B.A., Seoul National University',
-    'M.S., Hankuk University of Foreign Studies',
+    'M.S., Department of Global Sports, HUFS',
     'Secondary School Teacher Certificate in Physical Education, Grade 2 (Ministry of Education)',
     'Sports Management Certificate (Ministry of Culture, Sports and Tourism)',
     "Minister's Commendation, Ministry of Culture, Sports and Tourism — for contributing to the founding of the Korea Disabled Esports Federation",
   ],
   ko: [
-    '박사과정 재학 중',
+    '한국외국어대학교 글로벌스포츠학과 박사과정 재학',
     '서울대학교 학사',
-    '한국외국어대학교 석사',
+    '한국외국어대학교 글로벌스포츠학과 석사',
     '2급 체육 정교사 자격 (교육부)',
     '스포츠경영관리사 자격 (문화체육관광부)',
     '문화체육관광부 장관 표창 (대한장애인e스포츠연맹 설립 기여)',

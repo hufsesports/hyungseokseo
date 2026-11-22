@@ -20,7 +20,7 @@ export const nav = [
 ];
 
 export const meta = {
-  title: 'Seo Hyung Seok (Henry Seo) 서형석 — From E to F: Esports to Future Sports',
+  title: 'Seo Hyung Seok (Henry Seo) 서형석 — From E to F: Esports to Future Sport',
   description:
     'Adjunct professor at Hankuk University of Foreign Studies and an esports practitioner since 2002 across coaching, league operations, association strategy, and international events. 한국외국어대학교 겸임교수 서형석.',
 };
@@ -28,7 +28,7 @@ export const meta = {
 export const hero = {
   sub: 'Seo Hyung Seok (Henry Seo) · 서형석',
   tagline: 'From E to F',
-  tagline2: ': Esports to Future Sports',
+  tagline2: ': Esports to Future Sport',
 };
 
 // <b>…</b> 로 강조할 부분을 감쌉니다.

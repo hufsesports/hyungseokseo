@@ -67,3 +67,14 @@ function safe_(v) {
 function out_(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
 }
+
+// 관리용: 이름이 TEST_ 로 시작하는 시험 제출 행을 두 탭에서 지움 (편집기에서 직접 실행)
+function cleanupTestRows() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  [[WIDE, 3], [LONG, 3]].forEach(([name, col]) => {
+    const sh = ss.getSheetByName(name);
+    if (!sh || sh.getLastRow() < 2) return;
+    const vals = sh.getRange(2, col, sh.getLastRow() - 1, 1).getValues();
+    for (let i = vals.length - 1; i >= 0; i--) if (String(vals[i][0]).indexOf('TEST_') === 0) sh.deleteRow(i + 2);
+  });
+}

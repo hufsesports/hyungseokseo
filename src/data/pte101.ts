@@ -1,7 +1,7 @@
 // T1A PTE 101 섹션 문구·과제 문항. 문항 코드(B1, Q1 …)는 응답 시트·코드북과 연결되므로 바꾸지 마세요.
 
 /** Apps Script 웹 앱 URL (배포 후 붙여넣기). 비어 있으면 제출 버튼이 비활성화됩니다. */
-export const endpoint = '';
+export const endpoint = 'https://script.google.com/macros/s/AKfycbzM70U-SX60sI1VCRHVXNgMd0SbzvO7ZRv8lXzaycyrA834HWaVsWHuN3UrkeuN3vMr/exec';
 
 export const course = {
   title: 'T1A PTE 101',

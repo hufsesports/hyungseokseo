@@ -1,11 +1,12 @@
 /**
  * T1A PTE 101 웰컴과제 응답 수신기 (Google Apps Script)
- * 응답 시트 > 확장 프로그램 > Apps Script 에 이 파일 내용을 붙여넣고 웹 앱으로 배포합니다.
+ * script.google.com 새 프로젝트(독립형)에 붙여넣고 웹 앱으로 배포합니다. SHEET_ID 시트에 기록합니다.
  *  - '응답' 탭: 학생 1명(제출 1건) = 1행, 역량 격차 GAP 포함
  *  - '응답_long' 탭: 제출·문항·응답 1개 = 1행 (DB·AI 분석용)
  * 같은 학생이 여러 번 내면 행이 쌓이고, 분석할 때는 이름별 마지막 제출을 씁니다.
  */
 const CLASS_CODE = 'T1PTE7'; // 수업 시간에 학생들에게 알려줄 코드 (대소문자 무시)
+const SHEET_ID = '16_Oem1Tlqh2o48OeAQgj0U3YCU9BFfh4degOfLvaSTc'; // 응답 시트
 const WIDE = '응답';
 const LONG = '응답_long';
 
@@ -18,7 +19,7 @@ function doPost(e) {
     if (String(d.classCode || '').trim().toUpperCase() !== CLASS_CODE.toUpperCase()) {
       return out_({ ok: false, error: '수업 코드가 올바르지 않습니다.' });
     }
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const ss = SpreadsheetApp.openById(SHEET_ID);
     const wide = ss.getSheetByName(WIDE) || ss.insertSheet(WIDE, 0);
     const long = ss.getSheetByName(LONG) || ss.insertSheet(LONG, 1);
 
